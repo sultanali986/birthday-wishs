@@ -1,623 +1,712 @@
 <!DOCTYPE html>
 <html lang="en" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سالگرہ مبارک ہو شہزادی ❤️</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@600;700&family=Amiri:wght@700&family=Poppins:wght@500;600&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Noto Nastaliq Urdu', sans-serif;
-        }
-        body {
-            background: linear-gradient(135deg, #2c163a 0%, #d81b60 50%, #ff80ab 100%);
-            color: #fff;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            position: relative;
-            transition: background 0.8s ease-in-out;
-        }
-
-        body.glow-flash {
-            animation: screenGlow 0.4s ease;
-        }
-        @keyframes screenGlow {
-            0% { filter: brightness(1); }
-            50% { filter: brightness(1.5) drop-shadow(0 0 50px #ff69b4); }
-            100% { filter: brightness(1); }
-        }
-
-        .falling-bg-item {
-            position: absolute;
-            top: -60px;
-            font-size: 26px;
-            animation: fallDown linear infinite;
-            z-index: 1;
-            opacity: 0.85;
-            pointer-events: none;
-        }
-        @keyframes fallDown {
-            0% { transform: translateY(-60px) rotate(0deg); opacity: 0.9; }
-            100% { transform: translateY(105vh) rotate(360deg); opacity: 0.2; }
-        }
-
-        .container {
-            text-align: center;
-            padding: 30px 20px;
-            max-width: 460px;
-            width: 92%;
-            z-index: 10;
-            background: rgba(255, 255, 255, 0.97);
-            backdrop-filter: blur(30px);
-            border: 3px solid rgba(255, 255, 255, 0.9);
-            border-radius: 45px;
-            box-shadow: 0 25px 70px rgba(100, 10, 50, 0.45);
-            position: relative;
-        }
-        .screen {
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            animation: fadeIn 0.5s ease;
-        }
-        .screen.active {
-            display: flex;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.93); }
-            to { opacity: 1; transform: scale(1); }
-        }
-        h1 {
-            font-size: 24px;
-            margin-bottom: 15px;
-            color: #880e4f;
-            font-weight: 700;
-            line-height: 1.6;
-        }
-        p {
-            font-size: 15px;
-            margin-bottom: 18px;
-            color: #4a1525;
-            line-height: 1.8;
-            font-weight: 600;
-        }
-        .btn {
-            background: linear-gradient(45deg, #d81b60, #ad1457, #ff4081);
-            color: white;
-            border: none;
-            padding: 13px 30px;
-            font-size: 15px;
-            font-weight: 700;
-            border-radius: 35px;
-            cursor: pointer;
-            box-shadow: 0 10px 30px rgba(216, 27, 96, 0.6);
-            transition: 0.3s;
-            z-index: 20;
-        }
-        .btn:hover {
-            transform: scale(1.07);
-        }
-
-        .welcome-card {
-            background: linear-gradient(135deg, #fff0f3 0%, #ffe4e9 100%);
-            border: 2.5px dashed #d81b60;
-            border-radius: 30px;
-            padding: 20px;
-            margin-bottom: 20px;
-            width: 100%;
-        }
-
-        /* Passcode Screen */
-        .passcode-dots {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 22px;
-            justify-content: center;
-        }
-        .dot {
-            width: 18px;
-            height: 18px;
-            border: 3px solid #d81b60;
-            border-radius: 50%;
-            transition: 0.2s;
-        }
-        .dot.filled {
-            background: #d81b60;
-            box-shadow: 0 0 18px #d81b60;
-            transform: scale(1.3);
-        }
-        .keypad {
-            display: grid;
-            grid-template-columns: repeat(3, 70px);
-            gap: 14px;
-            justify-content: center;
-        }
-        .key {
-            background: #fff;
-            border: 3px solid #ff80ab;
-            height: 60px;
-            font-size: 18px;
-            color: #ad1457;
-            font-weight: 700;
-            border-radius: 50% 50% 50% 12px;
-            transform: rotate(-45deg);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: 0.2s;
-            box-shadow: 0 6px 18px rgba(216, 27, 96, 0.25);
-        }
-        .key span {
-            transform: rotate(45deg);
-        }
-        .key:hover {
-            background: #d81b60;
-            color: #fff;
-            transform: rotate(-45deg) scale(1.12);
-        }
-
-        /* Party Grid */
-        .party-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            margin-top: 10px;
-            width: 100%;
-        }
-        .party-item {
-            background: #fff;
-            border: 3px dashed #d81b60;
-            border-radius: 20px;
-            padding: 12px 5px;
-            cursor: pointer;
-            font-size: 26px;
-            transition: 0.3s;
-        }
-        .party-item:hover {
-            transform: scale(1.15);
-        }
-        .party-item.popped {
-            background: #ffcdd2;
-            opacity: 0.5;
-            transform: scale(0.9);
-        }
-
-        /* Arabic Titles & Static Scrollable Boxes */
-        .arabic-title {
-            font-family: 'Amiri', serif;
-            font-size: 26px;
-            font-weight: bold;
-            color: #880e4f;
-            margin-bottom: 10px;
-            text-shadow: 0 2px 3px rgba(0,0,0,0.1);
-        }
-        .static-msg {
-            font-size: 15px;
-            line-height: 2.2;
-            font-weight: 700;
-            color: #3b1428;
-            text-align: right;
-            max-height: 180px;
-            overflow-y: auto;
-            white-space: pre-line;
-            padding: 12px;
-            border-radius: 15px;
-            background: rgba(255, 255, 255, 0.95);
-            box-shadow: inset 0 2px 6px rgba(0,0,0,0.06);
-        }
-        .static-msg::-webkit-scrollbar {
-            width: 5px;
-        }
-        .static-msg::-webkit-scrollbar-thumb {
-            background: #d81b60;
-            border-radius: 10px;
-        }
-
-        /* Distinct Unique Shapes for Boxes */
-        .shape-1 {
-            border: 4px solid #ffa000;
-            border-radius: 40px 15px 40px 15px;
-            background: linear-gradient(135deg, #fff9c4, #fff);
-            padding: 18px;
-            margin-bottom: 12px;
-        }
-        .shape-2 {
-            border: 4px solid #d81b60;
-            border-radius: 50px 20px 50px 20px;
-            background: linear-gradient(135deg, #ffccd5, #fff);
-            padding: 18px;
-            margin-bottom: 12px;
-        }
-        .shape-3 {
-            border: 4px solid #8e24aa;
-            border-radius: 25px 45px 25px 45px;
-            background: linear-gradient(135deg, #e1bee7, #fff);
-            padding: 18px;
-            margin-bottom: 12px;
-        }
-        .shape-4 {
-            border: 4px solid #00695c;
-            border-radius: 35px 50px 10px 40px;
-            background: linear-gradient(135deg, #b2dfdb, #fff);
-            padding: 18px;
-            margin-bottom: 12px;
-        }
-        .shape-5 {
-            border: 4px solid #e65100;
-            border-radius: 20px 20px 50px 50px;
-            background: linear-gradient(135deg, #ffe0b2, #fff);
-            padding: 18px;
-            margin-bottom: 12px;
-        }
-        .shape-6 {
-            border: 4px solid #1565c0;
-            border-radius: 50px 10px 50px 10px;
-            background: linear-gradient(135deg, #bbdefb, #fff);
-            padding: 18px;
-            margin-bottom: 12px;
-        }
-
-        /* Fullscreen Popup */
-        #fullscreen-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(44, 22, 58, 0.85);
-            backdrop-filter: blur(10px);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            padding: 15px;
-        }
-        .popup-card {
-            background: #fff;
-            border-radius: 35px;
-            padding: 24px 18px;
-            text-align: center;
-            max-width: 420px;
-            width: 100%;
-            box-shadow: 0 25px 60px rgba(0,0,0,0.4);
-        }
-        .close-popup-btn {
-            background: linear-gradient(45deg, #d81b60, #ff416c);
-            color: white;
-            border: none;
-            padding: 11px 28px;
-            font-size: 15px;
-            font-weight: 700;
-            border-radius: 25px;
-            cursor: pointer;
-            margin-top: 18px;
-            box-shadow: 0 5px 15px rgba(216, 27, 96, 0.4);
-        }
-
-        /* Particle Burst */
-        .particle {
-            position: fixed;
-            font-size: 30px;
-            animation: flyAround 1.2s ease-out forwards;
-            z-index: 99999;
-            pointer-events: none;
-        }
-        @keyframes flyAround {
-            0% { transform: translate(0, 0) scale(0.4) rotate(0deg); opacity: 1; }
-            100% { transform: translate(var(--dx), var(--dy)) scale(1.8) rotate(360deg); opacity: 0; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>سالگرہ مبارک ہو آپ کو ❤️</title>
+<link href="[https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@600;700&family=Amiri:wght@700&family=Poppins:wght@500;600&display=swap](https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@600;700&family=Amiri:wght@700&family=Poppins:wght@500;600&display=swap)" rel="stylesheet">
+<style>
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+font-family: 'Noto Nastaliq Urdu', sans-serif;
+}
+body {
+background: linear-gradient(135deg, #2c163a 0%, #d81b60 50%, #ff80ab 100%);
+color: #fff;
+min-height: 100vh;
+display: flex;
+justify-content: center;
+align-items: center;
+overflow: hidden;
+position: relative;
+transition: background 0.8s ease-in-out;
+margin: 0;
+padding: 0;
+}
+body.glow-flash {
+animation: screenGlow 0.4s ease;
+}
+@keyframes screenGlow {
+0% { filter: brightness(1); }
+50% { filter: brightness(1.5) drop-shadow(0 0 50px #ff69b4); }
+100% { filter: brightness(1); }
+}
+.falling-bg-item {
+position: absolute;
+top: -60px;
+font-size: 26px;
+animation: fallDown linear infinite;
+z-index: 1;
+opacity: 0.85;
+pointer-events: none;
+}
+@keyframes fallDown {
+0% { transform: translateY(-60px) rotate(0deg); opacity: 0.9; }
+100% { transform: translateY(105vh) rotate(360deg); opacity: 0.2; }
+}
+.container {
+text-align: center;
+padding: 20px 15px;
+max-width: 460px;
+width: 92%;
+margin: auto;
+z-index: 10;
+background: rgba(255, 255, 255, 0.97);
+backdrop-filter: blur(30px);
+border: 3px solid rgba(255, 255, 255, 0.9);
+border-radius: 35px;
+box-shadow: 0 25px 70px rgba(100, 10, 50, 0.45);
+position: relative;
+max-height: 92vh;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+}
+.screen {
+display: none;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+text-align: center;
+width: 100%;
+animation: fadeIn 0.5s ease;
+max-height: calc(92vh - 40px);
+overflow-y: auto;
+}
+.screen::-webkit-scrollbar {
+width: 4px;
+}
+.screen::-webkit-scrollbar-thumb {
+background: #d81b60;
+border-radius: 10px;
+}
+.screen.active {
+display: flex;
+}
+@keyframes fadeIn {
+from { opacity: 0; transform: scale(0.93); }
+to { opacity: 1; transform: scale(1); }
+}
+h1 {
+font-size: 22px;
+margin-bottom: 12px;
+color: #880e4f;
+font-weight: 700;
+line-height: 1.5;
+width: 100%;
+text-align: center;
+}
+p {
+font-size: 14px;
+margin-bottom: 12px;
+color: #4a1525;
+line-height: 1.7;
+font-weight: 600;
+width: 100%;
+text-align: center;
+}
+.btn {
+background: linear-gradient(45deg, #d81b60, #ad1457, #ff4081);
+color: white;
+border: none;
+padding: 11px 26px;
+font-size: 14px;
+font-weight: 700;
+border-radius: 35px;
+cursor: pointer;
+box-shadow: 0 10px 30px rgba(216, 27, 96, 0.6);
+transition: 0.3s;
+z-index: 20;
+margin: 10px auto 0 auto;
+display: block;
+}
+.btn:hover {
+transform: scale(1.07);
+}
+.welcome-card {
+background: linear-gradient(135deg, #fff0f3 0%, #ffe4e9 100%);
+border: 2.5px dashed #d81b60;
+border-radius: 25px;
+padding: 15px;
+margin-bottom: 15px;
+width: 100%;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+text-align: center;
+}
+/* Passcode Screen */
+.passcode-dots {
+display: flex;
+gap: 15px;
+margin-bottom: 18px;
+justify-content: center;
+}
+.dot {
+width: 16px;
+height: 16px;
+border: 3px solid #d81b60;
+border-radius: 50%;
+transition: 0.2s;
+}
+.dot.filled {
+background: #d81b60;
+box-shadow: 0 0 18px #d81b60;
+transform: scale(1.3);
+}
+.keypad {
+display: grid;
+grid-template-columns: repeat(3, 60px);
+gap: 10px;
+justify-content: center;
+}
+.key {
+background: #fff;
+border: 3px solid #ff80ab;
+height: 52px;
+font-size: 16px;
+color: #ad1457;
+font-weight: 700;
+border-radius: 50% 50% 50% 12px;
+transform: rotate(-45deg);
+cursor: pointer;
+display: flex;
+align-items: center;
+justify-content: center;
+transition: 0.2s;
+box-shadow: 0 6px 18px rgba(216, 27, 96, 0.25);
+}
+.key span {
+transform: rotate(45deg);
+}
+.key:hover {
+background: #d81b60;
+color: #fff;
+transform: rotate(-45deg) scale(1.12);
+}
+/* Party Grid */
+.party-grid {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 10px;
+margin-top: 8px;
+width: 100%;
+justify-items: center;
+}
+.party-item {
+background: #fff;
+border: 3px dashed #d81b60;
+border-radius: 18px;
+padding: 10px 5px;
+cursor: pointer;
+font-size: 24px;
+transition: 0.3s;
+width: 100%;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+.party-item:hover {
+transform: scale(1.15);
+}
+.party-item.popped {
+background: #ffcdd2;
+opacity: 0.5;
+transform: scale(0.9);
+}
+/* Arabic Titles & Static Scrollable Boxes */
+.arabic-title {
+font-family: 'Amiri', serif;
+font-size: 24px;
+font-weight: bold;
+color: #880e4f;
+margin-bottom: 8px;
+text-shadow: 0 2px 3px rgba(0,0,0,0.1);
+width: 100%;
+text-align: center;
+}
+.static-msg {
+font-size: 14px;
+line-height: 2;
+font-weight: 700;
+color: #3b1428;
+text-align: center;
+max-height: 150px;
+overflow-y: auto;
+white-space: pre-line;
+padding: 12px;
+border-radius: 15px;
+background: rgba(255, 255, 255, 0.95);
+box-shadow: inset 0 2px 6px rgba(0,0,0,0.06);
+width: 100%;
+margin: 0 auto;
+direction: rtl;
+}
+.static-msg::-webkit-scrollbar {
+width: 4px;
+}
+.static-msg::-webkit-scrollbar-thumb {
+background: #d81b60;
+border-radius: 10px;
+}
+/* Distinct Unique Shapes for Boxes */
+.shape-1 {
+border: 4px solid #ffa000;
+border-radius: 35px 15px 35px 15px;
+background: linear-gradient(135deg, #fff9c4, #fff);
+padding: 14px;
+margin-bottom: 10px;
+width: 100%;
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+.shape-2 {
+border: 4px solid #d81b60;
+border-radius: 45px 20px 45px 20px;
+background: linear-gradient(135deg, #ffccd5, #fff);
+padding: 14px;
+margin-bottom: 10px;
+width: 100%;
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+.shape-3 {
+border: 4px solid #8e24aa;
+border-radius: 25px 45px 25px 45px;
+background: linear-gradient(135deg, #e1bee7, #fff);
+padding: 14px;
+margin-bottom: 10px;
+width: 100%;
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+.shape-4 {
+border: 4px solid #00695c;
+border-radius: 35px 50px 10px 40px;
+background: linear-gradient(135deg, #b2dfdb, #fff);
+padding: 14px;
+margin-bottom: 10px;
+width: 100%;
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+.shape-5 {
+border: 4px solid #e65100;
+border-radius: 20px 20px 45px 45px;
+background: linear-gradient(135deg, #ffe0b2, #fff);
+padding: 14px;
+margin-bottom: 10px;
+width: 100%;
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+.shape-6 {
+border: 4px solid #1565c0;
+border-radius: 45px 10px 45px 10px;
+background: linear-gradient(135deg, #bbdefb, #fff);
+padding: 14px;
+margin-bottom: 10px;
+width: 100%;
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+/* Fullscreen Popup */
+#fullscreen-overlay {
+position: fixed;
+top: 0;
+left: 0;
+width: 100vw;
+height: 100vh;
+background: rgba(44, 22, 58, 0.85);
+backdrop-filter: blur(10px);
+display: none;
+justify-content: center;
+align-items: center;
+z-index: 9999;
+padding: 15px;
+}
+.popup-card {
+background: #fff;
+border-radius: 30px;
+padding: 20px 15px;
+text-align: center;
+max-width: 400px;
+width: 92%;
+box-shadow: 0 25px 60px rgba(0,0,0,0.4);
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+.close-popup-btn {
+background: linear-gradient(45deg, #d81b60, #ff416c);
+color: white;
+border: none;
+padding: 10px 26px;
+font-size: 14px;
+font-weight: 700;
+border-radius: 25px;
+cursor: pointer;
+margin-top: 15px;
+box-shadow: 0 5px 15px rgba(216, 27, 96, 0.4);
+}
+/* Particle Burst */
+.particle {
+position: fixed;
+font-size: 26px;
+animation: flyAround 1.2s ease-out forwards;
+z-index: 99999;
+pointer-events: none;
+}
+@keyframes flyAround {
+0% { transform: translate(0, 0) scale(0.4) rotate(0deg); opacity: 1; }
+100% { transform: translate(var(--dx), var(--dy)) scale(1.8) rotate(360deg); opacity: 0; }
+}
+/* Final Screen Specific Animations & Styles */
+.beating-heart {
+font-size: 36px;
+animation: heartBeat 1.2s infinite ease-in-out;
+margin: 6px 0;
+display: inline-block;
+text-align: center;
+width: 100%;
+}
+@keyframes heartBeat {
+0%, 100% { transform: scale(1); }
+50% { transform: scale(1.25); }
+}
+.fade-in-line {
+opacity: 0;
+animation: fadeInSimple 1s ease-in-out forwards;
+animation-delay: 0.6s;
+font-size: 12px;
+color: #ad1457;
+font-weight: bold;
+margin-bottom: 10px;
+line-height: 1.6;
+text-align: center;
+width: 100%;
+}
+@keyframes fadeInSimple {
+from { opacity: 0; transform: translateY(6px); }
+to { opacity: 1; transform: translateY(0); }
+}
+.glowing-text {
+color: #d81b60;
+font-weight: 700;
+font-size: 12px;
+text-shadow: 0 0 12px rgba(216, 27, 96, 0.35);
+line-height: 1.6;
+margin: 6px 0;
+text-align: center;
+width: 100%;
+}
+</style>
 </head>
 <body>
-
-    <script>
-        setInterval(() => {
-            const symbols = ['🎈', '💖', '❤️', '🌸', '✨', '🎂', '🕯️', '⭐'];
-            const item = document.createElement('div');
-            item.className = 'falling-bg-item';
-            item.innerText = symbols[Math.floor(Math.random() * symbols.length)];
-            item.style.left = Math.random() * window.innerWidth + 'px';
-            item.style.animationDuration = (4 + Math.random() * 3) + 's';
-            document.body.appendChild(item);
-            setTimeout(() => item.remove(), 7000);
-        }, 280);
-    </script>
-
-    <div class="container">
-        <!-- Screen 1 -->
-        <div id="screen-1" class="screen active">
-            <h1>🎂 ایک خاص سرپرائز صرف آپ کے لیے ❤️</h1>
-            <div class="welcome-card">
-                <p style="color: #ad1457; margin-bottom: 5px;">✨ يا أميرتي | يا حبيبتي | محترمہ شہزادی ✨</p>
-                <p style="margin-top: 8px; font-size: 14px;">میری حیات کا سب سے حسین اور انمول تحفہ، آج آپ کا دن ہے! 💕</p>
-            </div>
-            <button class="btn" onclick="triggerMagicAndAction(2)">✨ آگے بڑھیں</button>
-        </div>
-
-        <!-- Screen 2: Passcode -->
-        <div id="screen-2" class="screen">
-            <h1>خفیہ پاسورڈ 🔐</h1>
-            <p style="font-size: 14px; color: #ad1457;">(صرف آپ یہ راز جانتی ہیں 🔐)</p>
-            <div class="passcode-dots">
-                <div class="dot" id="d1"></div>
-                <div class="dot" id="d2"></div>
-                <div class="dot" id="d3"></div>
-                <div class="dot" id="d4"></div>
-            </div>
-            <div class="keypad">
-                <button class="key" onclick="pressKey('1')"><span>1</span></button>
-                <button class="key" onclick="pressKey('2')"><span>2</span></button>
-                <button class="key" onclick="pressKey('3')"><span>3</span></button>
-                <button class="key" onclick="pressKey('4')"><span>4</span></button>
-                <button class="key" onclick="pressKey('5')"><span>5</span></button>
-                <button class="key" onclick="pressKey('6')"><span>6</span></button>
-                <button class="key" onclick="pressKey('7')"><span>7</span></button>
-                <button class="key" onclick="pressKey('8')"><span>8</span></button>
-                <button class="key" onclick="pressKey('9')"><span>9</span></button>
-                <button class="key" style="visibility: hidden;"></button>
-                <button class="key" onclick="pressKey('0')"><span>0</span></button>
-                <button class="key" style="visibility: hidden;"></button>
-            </div>
-        </div>
-
-        <!-- Screen 3: Static Message -->
-        <div id="screen-3" class="screen">
-            <h1>🎉 سالگرہ مبارک ہو! ✨</h1>
-            <div class="shape-1" style="width: 100%;">
-                <div class="arabic-title">يا قرة عيني ✨</div>
-                <div class="static-msg">🎂 میری جان، سالگرہ بہت بہت مبارک ہو! آپ کی موجودگی سے میری دنیا جنت بن جاتی ہے۔
-
-🌹 دعا ہے کہ اللہ تعالیٰ آپ کی ہر خوبصورت مسکراہٹ کو ہمیشہ سلامت رکھے اور آپ کو ہر غم سے دور رکھے۔
-
-💖 آپ میری زندگی کا وہ حسین خواب ہیں جو حقیقت بن کر میری روح کو معطر کر گیا ہے۔
-
-✨ اللہ تعالیٰ سے دعا ہے کہ ہمارا یہ پیارا رشتہ تادیر قائم رہے اور ہر آنے والا دن آپ کے لیے ڈھیروں خوشیاں لائے۔
-
-❤️ میری محبت، میری رانی، ہمیشہ خوش رہیں!</div>
-            </div>
-            <button class="btn" style="margin-top: 15px;" onclick="triggerMagicAndAction(4)">🎁 اگلا مرحلہ</button>
-        </div>
-
-        <!-- Screen 4: Party Grid -->
-        <div id="screen-4" class="screen">
-            <h1>خوبصورت سرپرائزز! 🎈</h1>
-            <p style="font-size: 13px;">ان پیارے بکسز پر کلک کر کے جادو دیکھیں:</p>
-            <div class="party-grid">
-                <div class="party-item" onclick="openPopupDynamic('يا حبيبتي ❤️', 'محترم اور پیاری شخصیت، آج کا یہ دن آپ کی آمد کی خوشی میں انتہائی مبارک ہے۔ اللہ تعالیٰ آپ کے وجود کو ہمیشہ سلامت رکھے اور آپ کی زندگی کا ہر لمحہ رحمتوں سے منور فرما دے۔ آپ کی شرافت اور خوبصورت اخلاق اس دنیا کو مزید حسین بناتے ہیں۔ دعا ہے کہ آپ کا ہر آنے والا دن ڈھیر ساری کامیابیاں اور سکون لے کر آئے۔ صحت اور تندرستی کا سایہ ہمیشہ آپ پر قائم رہے۔ آپ کی ہر نیک تمنا پوری ہو اور آپ ہمیشہ ہنستی مسکراتی رہیں۔ \n\n🎂 سالگرہ بہت بہت مبارک ہو!\n🌹 اللہ تعالیٰ آپ کو ہمیشہ خوش رکھے۔\n❤️ آپ کی مسکراہٹ ہمیشہ قائم رہے۔', this, 'shape-2')">🎈</div>
-                <div class="party-item" onclick="openPopupDynamic('يا قرة عيني ✨', 'آج کے اس بابکت اور خوبصورت دن پر دل کی گہرائیوں سے آپ کو سالگرہ کی مبارکباد پیش کرتا ہوں۔ اللہ تعالیٰ آپ کے مقدر میں بے پناہ آسانیاں، خوشیاں اور بلندیاں لکھے۔ آپ کا دل ہمیشہ اطمینان اور سکون سے بھرا رہے اور زندگی کا ہر سفر کامیابی سے طے ہو۔ میری دعا ہے کہ آپ کو دنیا کی تمام بہترین نعمتیں اور تندرستی حاصل ہو۔ آپ کا ہر خواب حقیقت کا روپ دھارے اور چہرے کی یہ دلکش مسکراہٹ کبھی مدھم نہ ہو۔ \n\n🎂 سالگرہ بہت بہت مبارک ہو!\n🌹 اللہ تعالیٰ آپ کو ہمیشہ خوش رکھے۔\n❤️ آپ کی مسکراہٹ ہمیشہ قائم رہے۔', this, 'shape-3')">💓</div>
-                <div class="party-item" onclick="openPopupDynamic('يا نور قلبي 💖', 'سالگرہ کا یہ حسین موقع آپ کی زندگی میں ایک نئی بہار اور خوشحالی لے کر آئے۔ اللہ تعالیٰ آپ کو صحتِ کاملہ، لمبی عمر اور عقلِ کامل عطا فرمائے۔ آپ کا باوقار انداز اور نرم خوئی سب کے دلوں میں گھر کر لیتی ہے۔ دعا ہے کہ آپ کے تمام مقاصد آسان ہوں اور آپ ہر میدان میں سرخرو ہوں۔ زندگی کے ہر موڑ پر آپ کو عزت، محبت اور خلوص آفریں رشتہ ملے۔ \n\n🎂 سالگرہ بہت بہت مبارک ہو!\n🌹 اللہ تعالیٰ آپ کو ہمیشہ خوش رکھے۔\n❤️ آپ کی مسکراہٹ ہمیشہ قائم رہے۔', this, 'shape-3')">🎈</div>
-                <div class="party-item" onclick="openPopupDynamic('يا سكن روحي 🌹', 'محترم اور عزیز ہستی، آپ کو سالگرہ کی ڈھیروں خوشیاں اور مبارکباد ہو۔ اللہ تعالیٰ آپ کی ذات کو ہمیشہ خیر و برکت کا ذریعہ بنائے۔ آپ کی زندگی میں کبھی کوئی غم یا تکلیف نہ آئے بلکہ ہر طرف کامیابیوں کے دیے جلیں۔ دعا ہے کہ آپ کا قلب ہمیشہ مطمئن رہے اور آپ کے تمام ارادے کامیابی سے ہمکنار ہوں۔ خدا آپ کو ہر بُری نظر سے محفوظ رکھے اور ہمیشہ شاد و آباد رکھے۔ \n\n🎂 سالگرہ بہت بہت مبارک ہو!\n🌹 اللہ تعالیٰ آپ کو ہمیشہ خوش رکھے۔\n❤️ آپ کی مسکراہٹ ہمیشہ قائم رہے۔', this, 'shape-5')">💖</div>
-                <div class="party-item" onclick="openPopupDynamic('يا نبض قلبي 💞', 'آج کا دن اس بات کا جشن ہے کہ دنیا میں اتنی خوبصورت اور بااخلاق شخصیت موجود ہے۔ اللہ تعالیٰ آپ کو دنیا و آخرت کی تمام نعمتوں سے مالامال فرمائے۔ آپ کی ہر دعا قبول ہو اور آپ کی زندگی کا ہر صفحہ خوشیوں کی کہانی بنے۔ دعا ہے کہ صحت، تندرستی اور وقار ہمیشہ آپ کا مقدر رہیں۔ آپ کا دل ہمیشہ محبت اور سکون سے منور رہے۔ \n\n🎂 سالگرہ بہت بہت مبارک ہو!\n🌹 اللہ تعالیٰ آپ کو ہمیشہ خوش رکھے۔\n❤️ آپ کی مسکراہٹ ہمیشہ قائم رہے۔', this, 'shape-6')">🎈</div>
-                <div class="party-item" onclick="openPopupDynamic('يا أميرتي 👑', 'میری طرف سے آپ کو سالگرہ کی پرخلوص اور دلی مبارکباد۔ اللہ تعالیٰ آپ کے اس نئے سال کو پچھلے تمام سالوں سے زیادہ خوبصورت اور بابکت بنائے۔ آپ کی زندگی میں سکونِ قلب، عزت اور خوشحالی کا دور دورہ ہو۔ دعا ہے کہ آپ کے تمام ادھورے خواب پورے ہوں اور زندگی کا ہر قدم کامیابی کی منزل تک پہنچے۔ آپ کی یہ خوش مزاجی ہمیشہ سلامت رہے۔ \n\n🎂 سالگرہ بہت بہت مبارک ہو!\n🌹 اللہ تعالیٰ آپ کو ہمیشہ خوش رکھے۔\n❤️ آپ کی مسکراہٹ ہمیشہ قائم رہے۔', this, 'shape-1')">💗</div>
-            </div>
-            <button class="btn" style="margin-top: 20px;" onclick="triggerMagicAndAction(5)">🌹 مزید سرپرائز</button>
-        </div>
-
-        <!-- Screen 5: Love Letter Page -->
-        <div id="screen-5" class="screen">
-            <div class="shape-3" style="width: 100%;">
-                <div class="arabic-title">💌 يا زهرتي 🌸</div>
-                <p style="color: #ad1457; font-size: 13px; font-weight: bold; margin-bottom: 8px;">یہ پیغام محبت، دعا اور سالگرہ کی خوشیوں کا امتزاج ہو۔</p>
-                <div class="static-msg" style="max-height: 200px;">محترم اور انتہائی قابلِ احترام شخصیت، آج کا یہ دن آپ کی سالگرہ کے حوالے سے انتہائی خاص اور مسرت بخش ہے۔ 
-
-اللہ تعالیٰ آپ کی زندگی میں اتنی خوشیاں اور برکتیں اتارے کہ دامن چھوٹا پڑ جائے۔ آپ کا وجود اس کائنات کے لیے ایک انمول تحفہ ہے۔
-
-دعا گو ہوں کہ اللہ تعالیٰ آپ کو صحتِ کاملہ، درازئ عمر، اور ہر قدم پر شاندار کامیابیاں عطا فرمائے۔ آپ کے تمام ارادے اور خواب سچ ثابت ہوں۔
-
-زندگی کے کسی بھی موڑ پر آپ کو کبھی مایوسی کا سامنا نہ کرنا پڑے، بلکہ ہر طرف سے رحمتیں اور آسانیاں آپ کا استقبال کریں۔
-
-آپ کا مہذب اور باوقار انداز سب کے لیے ایک بہترین مثال ہے۔ خدا آپ کے اس خلوص اور خوبصورت دل کو ہمیشہ سلامت رکھے۔
-
+<script>
+setInterval(() => {
+const symbols = ['🎈', '💖', '❤️', '🌸', '✨', '🎂', '🕯️', '⭐'];
+const item = document.createElement('div');
+item.className = 'falling-bg-item';
+item.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+item.style.left = Math.random() * window.innerWidth + 'px';
+item.style.animationDuration = (4 + Math.random() * 3) + 's';
+document.body.appendChild(item);
+setTimeout(() => item.remove(), 7000);
+}, 280);
+</script>
+<div class="container">
+<!-- Screen 1 -->
+<div id="screen-1" class="screen active">
+<h1>🎂 ایک خاص سرپرائز صرف آپ کے لیے ❤️</h1>
+<div class="welcome-card">
+<p style="color: #ad1457; margin-bottom: 5px;">✨ يا أميرتي | يا حبيبتي | محترمہ شخصیت ✨</p>
+<p style="margin-top: 6px; font-size: 13px;">میری حیات کا سب سے حسین اور انمول تحفہ، آج آپ کا دن ہے! 💕</p>
+</div>
+<button class="btn" onclick="triggerMagicAndAction(2)">✨ آگے بڑھیں</button>
+</div>
+<!-- Screen 2: Passcode -->
+<div id="screen-2" class="screen">
+<h1>خفیہ پاسورڈ 🔐</h1>
+<p style="font-size: 13px; color: #ad1457;">(صرف آپ یہ راز جانتی ہیں 🔐)</p>
+<div class="passcode-dots">
+<div class="dot" id="d1"></div>
+<div class="dot" id="d2"></div>
+<div class="dot" id="d3"></div>
+<div class="dot" id="d4"></div>
+</div>
+<div class="keypad">
+<button class="key" onclick="pressKey('1')"><span>1</span></button>
+<button class="key" onclick="pressKey('2')"><span>2</span></button>
+<button class="key" onclick="pressKey('3')"><span>3</span></button>
+<button class="key" onclick="pressKey('4')"><span>4</span></button>
+<button class="key" onclick="pressKey('5')"><span>5</span></button>
+<button class="key" onclick="pressKey('6')"><span>6</span></button>
+<button class="key" onclick="pressKey('7')"><span>7</span></button>
+<button class="key" onclick="pressKey('8')"><span>8</span></button>
+<button class="key" onclick="pressKey('9')"><span>9</span></button>
+<button class="key" style="visibility: hidden;"></button>
+<button class="key" onclick="pressKey('0')"><span>0</span></button>
+<button class="key" style="visibility: hidden;"></button>
+</div>
+</div>
+<!-- Screen 3: Static Message -->
+<div id="screen-3" class="screen">
+<h1>🎉 سالگرہ مبارک ہو آپ کو! ✨</h1>
+<div class="shape-1" style="width: 100%;">
+<div class="arabic-title">يا قرة عيني ✨</div>
+<div class="static-msg">🎂 سالگرہ کی یہ مبارک ساعتیں آپ کے لیے ڈھیر ساری خوشیاں لے کر آئیں۔
+آپ کی موجودگی سے ہماری دنیا میں سکون اور بہار آ جاتی ہے۔
+اللہ تعالیٰ آپ کی ہر خوبصورت مسکراہٹ کو ہمیشہ سلامت رکھے۔
+دعا ہے کہ آپ کا یہ نیا سال بے پناہ کامیابیوں سے منور ہو۔
+آپ کا دل ہمیشہ اطمینان اور قلبی سکون سے بھرا رہے۔
+خدا آپ کو ہر دکھ، غم اور پریشانی سے ہمیشہ محفوظ رکھے۔
+آپ کی تمام نیک دعائیں اور خواہشیں شرفِ قبولیت پائیں۔
+ہمیشہ ہنستی مسکراتی رہیں اور سلامت رہیں آمین۔</div>
+</div>
+<button class="btn" onclick="triggerMagicAndAction(4)">🎁 اگلا مرحلہ</button>
+</div>
+<!-- Screen 4: Party Grid -->
+<div id="screen-4" class="screen">
+<h1>خوبصورت سرپرائزز! 🎈</h1>
+<p style="font-size: 12px;">ان پیارے بکسز پر کلک کر کے جادو دیکھیں:</p>
+<div class="party-grid">
+<div class="party-item" onclick="openPopupDynamic('يا حبيبتي ❤️', 'محترم اور پیاری شخصیت، آج کا یہ دن آپ کی آمد کی خوشی میں انتہائی مبارک ہے۔ اللہ تعالیٰ آپ کے وجود کو ہمیشہ سلامت رکھے اور آپ کی زندگی کا ہر لمحہ رحمتوں سے منور فرما دے۔ آپ کی شرافت اور خوبصورت اخلاق اس دنیا کو مزید حسین بناتے ہیں۔ دعا ہے کہ آپ کا ہر آنے والا دن ڈھیر ساری کامیابیاں اور سکون لے کر آئے۔ صحت اور تندرستی کا سایہ ہمیشہ آپ پر قائم رہے۔ آپ کی ہر نیک تمنا پوری ہو اور آپ ہمیشہ ہنستی مسکراتی رہیں۔ \n\n🎂 سالگرہ بہت بہت مبارک ہو!\n🌹 اللہ تعالیٰ آپ کو ہمیشہ خوش رکھے۔\n❤️ آپ کی مسکراہٹ ہمیشہ قائم رہے.', this, 'shape-2')">🎈</div>
+<div class="party-item" onclick="openPopupDynamic('يا قرة عيني ✨', 'آج کے اس بابکت اور خوبصورت دن پر دل کی گہرائیوں سے آپ کو سالگرہ کی مبارکباد پیش کرتے ہیں۔ اللہ تعالیٰ آپ کے مقدر میں بے پناہ آسانیاں، خوشیاں اور بلندیاں لکھے۔ آپ کا دل ہمیشہ اطمینان اور سکون سے بھرا رہے اور زندگی کا ہر سفر کامیابی سے طے ہو۔ میری دعا ہے کہ آپ کو دنیا کی تمام بہترین نعمتیں اور تندرستی حاصل ہو۔ آپ کا ہر خواب حقیقت کا روپ دھارے اور چہرے کی یہ دلکش مسکراہٹ کبھی مدھم نہ ہو۔ \n\n🎂 سالگرہ بہت بہت مبارک ہو!\n🌹 اللہ تعالیٰ آپ کو ہمیشہ خوش رکھے۔\n❤️ آپ کی مسکراہٹ ہمیشہ قائم رہے.', this, 'shape-3')">💓</div>
+<div class="party-item" onclick="openPopupDynamic('يا نور قلبي 💖', 'سالگرہ کا یہ حسین موقع آپ کی زندگی میں ایک نئی بہار اور خوشحالی لے کر آئے۔ اللہ تعالیٰ آپ کو صحتِ کاملہ، لمبی عمر اور عقلِ کامل عطا فرمائے۔ آپ کا باوقار انداز اور نرم خوئی سب کے دلوں میں گھر کر لیتی ہے۔ دعا ہے کہ آپ کے تمام مقاصد آسان ہوں اور آپ ہر میدان میں سرخرو ہوں۔ زندگی کے ہر موڑ پر آپ کو عزت، محبت اور خلوص آفریں رشتہ ملے۔ \n\n🎂 سالگرہ بہت بہت مبارک ہو!\n🌹 اللہ تعالیٰ آپ کو ہمیشہ خوش رکھے۔\n❤️ آپ کی مسکراہٹ ہمیشہ قائم رہے.', this, 'shape-3')">🎈</div>
+<div class="party-item" onclick="openPopupDynamic('يا سكن روحي 🌹', 'محترم اور عزیز ہستی، آپ کو سالگرہ کی ڈھیروں خوشیاں اور مبارکباد ہو۔ اللہ تعالیٰ آپ کی ذات کو ہمیشہ خیر و برکت کا ذریعہ بنائے۔ آپ کی زندگی میں کبھی کوئی غم یا تکلیف نہ آئے بلکہ ہر طرف کامیابیوں کے دیے جلیں۔ دعا ہے کہ آپ کا قلب ہمیشہ مطمئن رہے اور آپ کے تمام ارادے کامیابی سے همکنار ہوں۔ خدا آپ کو ہر بُری نظر سے محفوظ رکھے اور ہمیشہ شاد و آباد رکھے۔ \n\n🎂 سالگرہ بہت بہت مبارک ہو!\n🌹 اللہ تعالیٰ آپ کو ہمیشہ خوش رکھے۔\n❤️ آپ کی مسکراہٹ ہمیشہ قائم رہے.', this, 'shape-5')">💖</div>
+<div class="party-item" onclick="openPopupDynamic('يا نبض قلبي 💞', 'آج کا دن اس بات کا جشن ہے کہ دنیا میں اتنی خوبصورت اور بااخلاق شخصیت موجود ہے۔ اللہ تعالیٰ آپ کو دنیا و آخرت کی تمام نعمتوں سے مالامال فرمائے۔ آپ کی ہر دعا قبول ہو اور آپ کی زندگی کا ہر صفحہ خوشیوں کی کہانی بنے۔ دعا ہے کہ صحت، تندرستی اور وقار ہمیشہ آپ کا مقدر رہیں۔ آپ کا دل ہمیشہ محبت اور سکون سے منور رہے۔ \n\n🎂 سالگرہ بہت بہت مبارک ہو!\n🌹 اللہ تعالیٰ آپ کو ہمیشہ خوش رکھے۔\n❤️ آپ کی مسکراہٹ ہمیشہ قائم رہے.', this, 'shape-6')">🎈</div>
+<div class="party-item" onclick="openPopupDynamic('يا أميرتي 👑', 'میری طرف سے آپ کو سالگرہ کی پرخلوص اور دلی مبارکباد۔ اللہ تعالیٰ آپ کے اس نئے سال کو پچھلے تمام سالوں سے زیادہ خوبصورت اور بابکت بنائے۔ آپ کی زندگی میں سکونِ قلب، عزت اور خوشحالی کا دور دورہ ہو۔ دعا ہے کہ آپ کے تمام ادھورے خواب پورے ہوں اور زندگی کا ہر قدم کامیابی کی منزل تک پہنچے۔ آپ کی یہ خوش مزاجی ہمیشہ سلامت رہے۔ \n\n🎂 سالگرہ بہت بہت مبارک ہو!\n🌹 اللہ تعالیٰ آپ کو ہمیشہ خوش رکھے۔\n❤️ آپ کی مسکراہٹ ہمیشہ قائم رہے.', this, 'shape-1')">💗</div>
+</div>
+<button class="btn" onclick="triggerMagicAndAction(5)">🌹 اگلا مرحلہ</button>
+</div>
+<!-- Screen 5: New Surprise Page 1 -->
+<div id="screen-5" class="screen">
+<div class="shape-3" style="width: 100%;">
+<div class="arabic-title">💌 يا زهرتي 🌸</div>
+<p style="color: #ad1457; font-size: 12px; font-weight: bold; margin-bottom: 6px;">پیغامِ محبت اور دعا...</p>
+<div class="static-msg" style="max-height: 150px;">محترم اور انتہائی قابلِ احترام شخصیت، آج کا یہ دن آپ کی سالگرہ کے حوالے سے انتہائی خاص اور مسرت بخش ہے۔
+اللہ تعالیٰ آپ کی زندگی میں اتنی خوشیاں اور برکتیں اتارے کہ دامن چھوٹا پڑ جائے۔
+آپ کا وجود اس کائنات کے لیے ایک انمول اور قیمتی تحفہ ہے۔
+دعا گو ہیں کہ اللہ تعالیٰ آپ کو صحتِ کاملہ اور درازئ عمر عطا فرمائے۔
+آپ کے تمام نیک ارادے اور خوبصورت خواب سچ ثابت ہوں۔
+زندگی کے کسی بھی موڑ پر آپ کو کبھی مایوسی کا سامنا نہ کرنا پڑے۔
+آپ کا مہذب اور باوقار انداز سب کے لیے ایک بہترین مثال ہے۔
+خدا آپ کے اس خلوص اور خوبصورت دل کو ہمیشہ سلامت رکھے۔
+آمین یا رب العالمین، سالگرہ بہت مبارک ہو آپ کو۔</div>
+</div>
+<button class="btn" onclick="triggerMagicAndAction(6)">🎁 اگلا مرحلہ</button>
+</div>
+<!-- Screen 6: New Surprise Page 2 -->
+<div id="screen-6" class="screen">
+<div class="shape-6" style="width: 100%;">
+<div class="arabic-title">🌙 يا ملاكي 🤍</div>
+<p style="color: #ad1457; font-size: 12px; font-weight: bold; margin-bottom: 6px;">روشن رات کا پیارا تحفہ ✨</p>
+<div class="static-msg" style="max-height: 150px;">محترم ہستی، سالگرہ کی یہ مبارک ساعتیں آپ کے لیے ڈھیر سارا سکون لے کر آئیں۔
+اللہ تعالیٰ آپ کے مقدر کے تاریک لمحوں کو ہمیشہ کے لیے روشن کر دے۔
+آپ کی زندگی کو اللہ پاک پھولوں کی طرح حسین گلزار بنا دے۔
+دعا ہے کہ آپ کی صحت ہمیشہ بہترین رہے اور دل خوشیوں سے معمور رہے۔
+آپ کی عزت، آپ کا احترام اور آپ کی اعلیٰ ظرفی ہمیشہ قائم رہے۔
+خدا آپ کو کسی بھی غم، دکھ یا آزمائش کے قریب نہ آنے دے۔
+ہر آنے والا دن آپ کے لیے نئی امیدیں اور کامیابیاں لے کر طلوع ہو۔
+آپ کی زندگی کا ہر ایک قدم عزت اور کامرانی سے آگے بڑھے۔
+آمین ثم آمین، سالگرہ مبارک ہو آپ کو۔</div>
+</div>
+<button class="btn" onclick="triggerMagicAndAction(7)">🌹 اگلا مرحلہ</button>
+</div>
+<!-- Screen 7: New Surprise Page 3 -->
+<div id="screen-7" class="screen">
+<div class="shape-4" style="width: 100%;">
+<div class="arabic-title">يا جنة قلبي 🌷</div>
+<p style="color: #ad1457; font-size: 12px; font-weight: bold; margin-bottom: 6px;">دل کی گہرائیوں سے دعائیں...</p>
+<div class="static-msg" style="max-height: 150px;">محترم اور معزز شخصیت، سالگرہ کے اس پرمسرت موقع پر دعا گو ہیں۔
+اللہ تعالیٰ آپ کو دنیا و آخرت کی تمام فلاح و بہبود عطا فرمائے۔
+آپ کی زندگی کا ہر قدم کامیابی اور خوشیوں کی طرح سج جائے۔
+آپ کو کبھی زندگی میں کسی بھی مشکل یا رنج کا سامنا نہ کرنا پڑے۔
+آپ کا بلند اخلاق اور آپ کی نرمی ہمیشہ سب کے دلوں کو جیت لیتی ہے۔
+اللہ تعالیٰ آپ کے تمام جائز مقاصد میں ڈھیر ساری برکت ڈالے۔
+آپ کو ہمیشہ معاشرے میں ایک بلند مقام اور عزت حاصل ہو۔
+آپ کی یہ ہنستی مسکراتی طبیعت ہمیشہ سلامت اور آباد رہے۔
+آمین یا رب العالمین، سالگرہ مبارک ہو آپ کو۔</div>
+</div>
+<button class="btn" onclick="triggerMagicAndAction(8)">✨ اگلا مرحلہ</button>
+</div>
+<!-- Screen 8: New Surprise Page 4 -->
+<div id="screen-8" class="screen">
+<div class="shape-2" style="width: 100%;">
+<div class="arabic-title">يا نور عيني 🌹</div>
+<p style="color: #ad1457; font-size: 12px; font-weight: bold; margin-bottom: 6px;">محبت اور خلوص کا پیغام...</p>
+<div class="static-msg" style="max-height: 150px;">قابلِ احترام شخصیت، آپ کی سالگرہ ہمارے لیے بھی انتہائی خاص ہے۔
+اللہ تعالیٰ آپ کو زندگی کے ہر میدان میں سرخرو اور کامیاب فرمائے۔
+آپ کا دل ہمیشہ ایمان کی روشنی اور قلبی سکون سے سرشار رہے۔
+آپ کے ارادے مضبوط ہوں اور آپ کی منزلیں ہمیشہ آسان ہوں گی۔
+خدا آپ کی ہر جائز دعا کو اپنی بارگاہ میں شرفِ قبولیت عطا فرمائے۔
+آپ کا یہ پیارا ساتھ اور خلوص ہمارے لیے بہت زیادہ قیمتی ہے۔
+دعا ہے کہ آپ کا سایہ ہمیشہ سلامت رہے اور خوشیاں ملتی رہیں۔
+آپ کی زندگی کا ہر نیا دن پچھلے دن سے زیادہ خوبصورت ہو۔
+آمین ثم آمین، سالگرہ مبارک ہو آپ کو۔</div>
+</div>
+<button class="btn" onclick="triggerMagicAndAction(9)">🌹 اگلا مرحلہ</button>
+</div>
+<!-- Screen 9: New Surprise Page 5 -->
+<div id="screen-9" class="screen">
+<div class="shape-5" style="width: 100%;">
+<div class="arabic-title">يا بهجة قلبي ❤️</div>
+<p style="color: #ad1457; font-size: 12px; font-weight: bold; margin-bottom: 6px;">خوشیوں بھرا پیغام...</p>
+<div class="static-msg" style="max-height: 150px;">محترم ہستی، آج کے اس بابکت دن پر آپ کو دلی مبارکباد پیش کرتے ہیں۔
+اللہ تعالیٰ آپ کے تمام خوابوں اور ارمانوں کو حقیقی تعبیر عطا فرمائے۔
+آپ کی زندگی میں کبھی غم کا سایہ تک نہ آنے پائے آمین۔
+آپ کا حسنِ سلوک اور پیارا انداز سب کے لیے باعثِ مسرت ہے۔
+خدا آپ کو تمام حسد اور بری نظروں سے ہمیشہ محفوظ و مامون رکھے۔
+آپ کی زندگی میں اطمینان، برکت اور رحمتوں کا نزول ہوتا رہے۔
+آپ ہمیشہ یونہی ہنستی مسکراتی رہیں اور شاد و آباد رہیں۔
+یہ سال آپ کی زندگی کا سب سے بہترین اور یادگار سال ثابت ہو۔
+آمین یا رب العالمین، سالگرہ مبارک ہو آپ کو۔</div>
+</div>
+<button class="btn" onclick="triggerMagicAndAction(10)">🎁 اگلا مرحلہ</button>
+</div>
+<!-- Screen 10: Final Ending Page -->
+<div id="screen-10" class="screen">
+<div class="shape-1" style="width: 100%;">
+<div class="arabic-title">🤲 يا نور عيني ❤️</div>
+<p style="color: #ad1457; font-size: 12px; font-weight: bold; margin-bottom: 4px;">✨ یہ سرپرائز یہاں ختم نہیں ہوتا، بلکہ میری دعائیں ہمیشہ آپ کے ساتھ رہیں گی۔ ✨</p>
+<div class="static-msg" style="max-height: 120px;">🌸 بسم اللہ الرحمٰن الرحیم
+اے اللہ!
+آپ کی زندگی کو ہمیشہ اپنی رحمتوں، برکتوں اور خوشیوں سے بھر دے۔
+آپ کے چہرے کی یہ خوبصورت مسکراہٹ ہمیشہ قائم رہے۔
+آپ کا ہر دن سکون، محبت، عزت اور کامیابی سے بھرپور ہو۔
+ہر جائز دعا قبول ہو۔
+ہر مشکل آسان ہو۔
+ہر خواب حقیقت بنے۔
+ہر آنے والا سال پہلے سے زیادہ خوبصورت ہو۔
+آپ ہمیشہ خوش رہیں، سلامت رہیں اور اللہ تعالیٰ کی حفاظت میں رہیں۔
 آمین یا رب العالمین۔
-
-🎂 سالگرہ بہت بہت مبارک ہو!
-🌹 اللہ تعالیٰ آپ کو ہمیشہ خوش رکھے۔
-❤️ آپ کی مسکراہٹ ہمیشہ قائم رہے۔</div>
-            </div>
-            <button class="btn" style="margin-top: 15px;" onclick="triggerMagicAndAction(6)">🎁 اگلا مرحلہ</button>
-        </div>
-
-        <!-- Screen 6: Romantic Surprise Page -->
-        <div id="screen-6" class="screen">
-            <div class="shape-6" style="width: 100%;">
-                <div class="arabic-title">🌙 يا ملاكي 🤍</div>
-                <p style="color: #ad1457; font-size: 13px; font-weight: bold; margin-bottom: 8px;">روشن رات کا پیارا تحفہ ✨</p>
-                <div class="static-msg" style="max-height: 200px;">محترم ہستی، سالگرہ کی یہ مبارک ساعتیں آپ کے لیے ڈھیر سارا سکون اور مسرت لے کر آئیں۔ 
-
-اللہ تعالیٰ آپ کے مقدر کے تاریک لمحوں کو ہمیشہ کے لیے روشن کر دے اور آپ کی زندگی کو گلزار بنا دے۔ 
-
-دعا ہے کہ آپ کی صحت ہمیشہ بہترین رہے، آپ کا دل خوشیوں سے معمور رہے اور آپ ہر میدان میں نام پیدا کریں۔ 
-
-آپ کی عزت، آپ کا احترام اور آپ کی اعلیٰ ظرفی قابلِ دید ہے۔ خدا آپ کو کسی بھی غم یا آزمائش کے قریب نہ آنے دے۔ 
-
-ہر آنے والا دن آپ کے لیے نئی امیدیں، نئے حوصلے اور بے پناہ کامیابیاں لے کر طلوع ہو۔
-
-آمین ثم آمین۔
-
-🎂 سالگرہ بہت بہت مبارک ہو!
-🌹 اللہ تعالیٰ آپ کو ہمیشہ خوش رکھے۔
-❤️ آپ کی مسکراہٹ ہمیشہ قائم رہے۔</div>
-            </div>
-            <button class="btn" style="margin-top: 15px;" onclick="triggerMagicAndAction(7)">🌹 مزید سرپرائز</button>
-        </div>
-
-        <!-- Screen 7: Video Screen -->
-        <div id="screen-7" class="screen">
-            <div class="shape-4" style="width: 100%;">
-                <div class="arabic-title">يا جنتي 🌷</div>
-                <div class="static-msg">محترم اور معزز شخصیت، سالگرہ کے اس پرمسرت موقع پر آپ کے لیے دعا گو ہوں کہ اللہ تعالیٰ آپ کو دنیا و آخرت کی تمام فلاح و بہبود عطا فرمائے۔ آپ کی زندگی کا ہر قدم پھولوں کی طرح سج جائے اور آپ کو کبھی کسی مشکل کا سامنا نہ ہو۔ آپ کا اخلاق اور آپ کی نرمی دلوں کو جیت لیتی ہے۔ اللہ تعالیٰ آپ کے تمام جائز مقاصد میں برکت ڈالے اور آپ کو ہمیشہ بلند مقام عطا فرمائے۔ 
-
-🎂 سالگرہ بہت بہت مبارک ہو!
-🌹 اللہ تعالیٰ آپ کو ہمیشہ خوش رکھے۔
-❤️ آپ کی مسکراہٹ ہمیشہ قائم رہے۔</div>
-            </div>
-
-            <div class="shape-5" style="margin-top:15px;width:100%;">
-                <div class="arabic-title">يا بهجة قلبي 💕</div>
-                <p style="color:#880e4f;font-weight:bold;margin-bottom:8px;font-size:13px;">
-                    یہ چھوٹا سا تحفہ صرف آپ کے لیے ❤️
-                </p>
-                <div style="position: relative; width: 100%; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px;">
-                    <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" src="https://www.youtube.com/embed/oaqYGyNYkpU" allowfullscreen></iframe>
-                </div>
-            </div>
-
-            <div class="shape-2" style="margin-top:15px;width:100%;">
-                <div class="arabic-title">يا حبيبتي ❤️</div>
-                <p style="color:#880e4f;font-weight:bold;margin-bottom:8px;font-size:13px;">
-                    ایک اور پیاری یاد آپ کے نام 🌹
-                </p>
-                <div style="position: relative; width: 100%; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px;">
-                    <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" src="https://www.youtube.com/embed/vKxwSnF02Uc" allowfullscreen></iframe>
-                </div>
-            </div>
-
-            <button class="btn" style="margin-top: 15px;" onclick="triggerMagicAndAction(8)">✨ آگے بڑھیں</button>
-        </div>
-
-        <!-- Screen 8: Final Dua Screen -->
-        <div id="screen-8" class="screen">
-            <div class="shape-1" style="width: 100%;">
-                <div class="arabic-title">🤲 يا نور قلبي 💖</div>
-                <p style="color: #ad1457; font-size: 13px; font-weight: bold; margin-bottom: 8px;">✨ آخری دعا، دل کی گہرائیوں سے... ✨</p>
-                <div class="static-msg" style="max-height: 200px;">🌸 بسم اللہ الرحمٰن الرحیم
-
-محترم اور معزز شخصیت، سالگرہ کے اس مبارک اور حسین موقع پر بارگاہِ الٰہی میں دعا ہے کہ وہ آپ کی تمام نیک دعاؤں کو شرفِ قبولیت بخشے۔ 
-
-خدا آپ کی حیات کو صحت، تندرستی، عزت اور شان و شوکت سے مالامال کر دے۔ آپ کا ہر دن عبادت، سکون اور اطمینان میں گزرے۔
-
-زندگی کے کسی بھی موڑ پر آپ کو اکیلا پن یا پریشانی محسوس نہ ہو، بلکہ غیب سے آپ کی مدد ہو۔ آپ کی یہ خوبصورت مسکراہٹ ہمیشہ آپ کے چہرے کی زینت بنی رہے۔
-
-آپ کا خلوص اور پروقار رویہ سب کے لیے باعثِ تقلید ہے۔ اللہ تعالیٰ آپ کو ہر حسد، ہر نظرِ بد اور ہر بیماری سے محفوظ و مامون رکھے۔
-
-آمین یا رب العالمین۔
-
-🎂 سالگرہ بہت بہت مبارک ہو!
-🌹 اللہ تعالیٰ آپ کو ہمیشہ خوش رکھے۔
-❤️ آپ کی مسکراہٹ ہمیشہ قائم رہے۔</div>
-            </div>
-            <button class="btn" style="margin-top: 15px;" onclick="location.reload()">❤️ دوبارہ شروع کریں</button>
-        </div>
-    </div>
-
-    <!-- Popup -->
-    <div id="fullscreen-overlay">
-        <div id="popup-card-box" class="popup-card">
-            <div id="popup-title" class="arabic-title" style="font-size: 24px;"></div>
-            <div id="popup-text" class="static-msg" style="max-height: 220px; font-size: 15px;"></div>
-            <button class="close-popup-btn" onclick="closePopup()">💖 بند کریں</button>
-        </div>
-    </div>
-
-    <script>
-        const themes = [
-            "linear-gradient(135deg, #2c163a 0%, #d81b60 50%, #ff80ab 100%)",
-            "linear-gradient(135deg, #4a0e4e 0%, #b5179e 50%, #f72585 100%)",
-            "linear-gradient(135deg, #1b4332 0%, #2d6a4f 50%, #52b788 100%)",
-            "linear-gradient(135deg, #3a0ca3 0%, #4361ee 50%, #4cc9f0 100%)",
-            "linear-gradient(135deg, #590d22 0%, #800f2f 50%, #a4133c 100%)",
-            "linear-gradient(135deg, #7209b7 0%, #3a0ca3 50%, #4cc9f0 100%)"
-        ];
-        let themeIndex = 0;
-
-        function changeThemeAndGlow() {
-            themeIndex = (themeIndex + 1) % themes.length;
-            document.body.style.background = themes[themeIndex];
-            document.body.classList.add('glow-flash');
-            setTimeout(() => document.body.classList.remove('glow-flash'), 400);
-        }
-
-        function createBurstParticles() {
-            const symbols = ['⭐', '🌟', '💖', '🎈', '🎉', '✨', '💕', '💫', '👑', '🌸', '❤️', '🕯️', '🎂'];
-            const screenWidth = window.innerWidth;
-            const screenHeight = window.innerHeight;
-            const startX = screenWidth / 2;
-            const startY = screenHeight / 2;
-
-            for (let i = 0; i < 35; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.innerText = symbols[Math.floor(Math.random() * symbols.length)];
-                
-                const angle = Math.random() * Math.PI * 2;
-                const distance = 120 + Math.random() * (Math.min(screenWidth, screenHeight) / 2.2);
-                particle.style.setProperty('--dx', `${Math.cos(angle) * distance}px`);
-                particle.style.setProperty('--dy', `${Math.sin(angle) * distance}px`);
-                particle.style.left = `${startX}px`;
-                particle.style.top = `${startY}px`;
-
-                document.body.appendChild(particle);
-                setTimeout(() => particle.remove(), 1200);
-            }
-        }
-
-        function triggerMagicAndAction(nextScr) {
-            changeThemeAndGlow();
-            createBurstParticles();
-
-            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-            document.getElementById(`screen-${nextScr}`).classList.add('active');
-        }
-
-        let currentPasscode = "";
-        const correctPasscode = "2210";
-
-        function pressKey(num) {
-            changeThemeAndGlow();
-            createBurstParticles();
-            if (currentPasscode.length < 4) {
-                currentPasscode += num;
-                updateDots();
-            }
-            if (currentPasscode.length === 4) {
-                setTimeout(() => {
-                    if (currentPasscode === correctPasscode) {
-                        triggerMagicAndAction(3);
-                    } else {
-                        alert("غلط پاسورڈ! دوبارہ کوشش کریں");
-                        currentPasscode = "";
-                        updateDots();
-                    }
-                }, 200);
-            }
-        }
-
-        function updateDots() {
-            for (let i = 1; i <= 4; i++) {
-                const dot = document.getElementById(`d${i}`);
-                if (i <= currentPasscode.length) {
-                    dot.classList.add('filled');
-                } else {
-                    dot.classList.remove('filled');
-                }
-            }
-        }
-
-        function openPopupDynamic(title, msg, element, shapeClass) {
-            changeThemeAndGlow();
-            createBurstParticles();
-            element.classList.add('popped');
-            element.innerHTML = "✨";
-
-            const cardBox = document.getElementById('popup-card-box');
-            cardBox.className = `popup-card ${shapeClass}`;
-            document.getElementById('popup-title').innerText = title;
-            document.getElementById('popup-text').innerText = msg;
-            document.getElementById('fullscreen-overlay').style.display = 'flex';
-        }
-
-        function closePopup() {
-            changeThemeAndGlow();
-            document.getElementById('fullscreen-overlay').style.display = 'none';
-        }
-    </script>
+🎂 سالگرہ بہت بہت مبارک ہو آپ کو! ❤️</div>
+<div class="beating-heart">❤️</div>
+<div class="static-msg" style="max-height: 100px; margin-top: 4px; font-size: 13px; background: rgba(255, 240, 243, 0.9);">🌹
+"اگر اس چھوٹے سے سرپرائز نے آپ کے چہرے پر ایک مسکراہٹ بھی لا دی،
+تو یہی اس پوری ویب سائٹ کا سب سے خوبصورت انعام ہے۔"
+💖
+"آپ ہمیشہ مسکراتی رہیں،
+کیونکہ آپ کی مسکراہٹ ہی دنیا کی سب سے خوبصورت چیز ہے۔"
+✨
+"اللہ تعالیٰ آپ کو ہمیشہ اپنی امان میں رکھے۔"
+💌
+"یہ سرپرائز ختم ہوا...
+लेकिन آپ کے لیے میری دعائیں کبھی ختم نہیں ہوں گی۔"</div>
+<div class="fade-in-line">
+🌙 "اور آخر میں... ایک مسکراہٹ میری طرف سے، اور ڈھیروں ساری دعائیں اللہ تعالیٰ کی طرف سے۔ عید ہو یا سالگرہ، میری دعا ہے کہ آپ ہمیشہ خوش رہیں۔ ❤️"
+</div>
+</div>
+<button class="btn" style="margin-top: 5px;" onclick="location.reload()">🌸 دوبارہ سرپرائز دیکھیں 🌸</button>
+</div>
+</div>
+<!-- Popup -->
+<div id="fullscreen-overlay">
+<div id="popup-card-box" class="popup-card">
+<div id="popup-title" class="arabic-title" style="font-size: 22px;"></div>
+<div id="popup-text" class="static-msg" style="max-height: 180px; font-size: 14px;"></div>
+<button class="close-popup-btn" onclick="closePopup()">💖 بند کریں</button>
+</div>
+</div>
+<script>
+const themes = [
+"linear-gradient(135deg, #2c163a 0%, #d81b60 50%, #ff80ab 100%)",
+"linear-gradient(135deg, #4a0e4e 0%, #b5179e 50%, #f72585 100%)",
+"linear-gradient(135deg, #1b4332 0%, #2d6a4f 50%, #52b788 100%)",
+"linear-gradient(135deg, #3a0ca3 0%, #4361ee 50%, #4cc9f0 100%)",
+"linear-gradient(135deg, #590d22 0%, #800f2f 50%, #a4133c 100%)",
+"linear-gradient(135deg, #7209b7 0%, #3a0ca3 50%, #4cc9f0 100%)"
+];
+let themeIndex = 0;
+function changeThemeAndGlow() {
+themeIndex = (themeIndex + 1) % themes.length;
+document.body.style.background = themes[themeIndex];
+document.body.classList.add('glow-flash');
+setTimeout(() => document.body.classList.remove('glow-flash'), 400);
+}
+function createBurstParticles() {
+const symbols = ['⭐', '🌟', '💖', '🎈', '🎉', '✨', '💕', '💫', '👑', '🌸', '❤️', '🕯️', '🎂'];
+const screenWidth = window.innerWidth;
+const screenHeight = window.innerHeight;
+const startX = screenWidth / 2;
+const startY = screenHeight / 2;
+for (let i = 0; i < 35; i++) {
+const particle = document.createElement('div');
+particle.className = 'particle';
+particle.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+const angle = Math.random() * Math.PI * 2;
+const distance = 120 + Math.random() * (Math.min(screenWidth, screenHeight) / 2.2);
+particle.style.setProperty('--dx', ${Math.cos(angle) * distance}px);
+particle.style.setProperty('--dy', ${Math.sin(angle) * distance}px);
+particle.style.left = ${startX}px;
+particle.style.top = ${startY}px;
+document.body.appendChild(particle);
+setTimeout(() => particle.remove(), 1200);
+}
+}
+function triggerMagicAndAction(nextScr) {
+changeThemeAndGlow();
+createBurstParticles();
+document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+document.getElementById(screen-${nextScr}).classList.add('active');
+}
+let currentPasscode = "";
+const correctPasscode = "2210";
+function pressKey(num) {
+changeThemeAndGlow();
+createBurstParticles();
+if (currentPasscode.length < 4) {
+currentPasscode += num;
+updateDots();
+}
+if (currentPasscode.length === 4) {
+setTimeout(() => {
+if (currentPasscode === correctPasscode) {
+triggerMagicAndAction(3);
+} else {
+alert("غلط پاسورڈ! دوبارہ کوشش کریں");
+currentPasscode = "";
+updateDots();
+}
+}, 200);
+}
+}
+function updateDots() {
+for (let i = 1; i <= 4; i++) {
+const dot = document.getElementById(d${i});
+if (i <= currentPasscode.length) {
+dot.classList.add('filled');
+} else {
+dot.classList.remove('filled');
+}
+}
+}
+function openPopupDynamic(title, msg, element, shapeClass) {
+changeThemeAndGlow();
+createBurstParticles();
+element.classList.add('popped');
+element.innerHTML = "✨";
+const cardBox = document.getElementById('popup-card-box');
+cardBox.className = popup-card ${shapeClass};
+document.getElementById('popup-title').innerText = title;
+document.getElementById('popup-text').innerText = msg;
+document.getElementById('fullscreen-overlay').style.display = 'flex';
+}
+function closePopup() {
+changeThemeAndGlow();
+document.getElementById('fullscreen-overlay').style.display = 'none';
+}
+</script>
 </body>
 </html>
